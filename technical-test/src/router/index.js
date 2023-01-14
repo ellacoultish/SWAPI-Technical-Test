@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import CharacterView from "../views/CharacterView.vue"
 
 Vue.use(VueRouter)
 
@@ -11,9 +12,9 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    component: CharacterData
+    path: '/character',
+    name: 'character',
+    component: CharacterView
   }
 ]
 
