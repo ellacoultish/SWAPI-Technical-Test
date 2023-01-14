@@ -1,6 +1,6 @@
 <template>
   <div class="home-parent">
-      <v-simple-table v-if="!loading">
+      <v-simple-table v-if="!this.$store.state.loading">
         <thead>
           <tr>
             <th>Name</th>
@@ -10,7 +10,7 @@
         <tbody>
           <tr v-for="character in charactersList.results" @click="goToCharacterPage(character.url)" :key="character.name">
             <td>{{ character.name }}</td>
-            <td>0</td>
+            <td>{{$store.getters.getCharacterLikesById(extractIdFromApi(character.url)) ?? 0}}</td>
           </tr>
         </tbody>
       </v-simple-table>
@@ -29,18 +29,17 @@ import ApiMixin from '../mixins/ApiMixin.js'
       return {
         charactersList: [],
         pageNumber: 1,
-        numbeOfPages:10,
-        loading: true
+        numbeOfPages:10
       }
     },
     methods: {
       async getData(pageNumber) {
         this.pageNumber = pageNumber;
-        this.loading = true;
+        this.$store.commit('loading',{state:true});
         const res = await fetch("https://swapi.dev/api/people/?page=" + pageNumber);
         const finalRes = await res.json();
         this.charactersList = finalRes;
-        this.loading = false;
+        this.$store.commit('loading',{state:false});
       },
       goToCharacterPage(url){
       const id = this.extractIdFromApi(url);
