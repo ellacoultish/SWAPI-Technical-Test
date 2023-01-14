@@ -6,16 +6,8 @@ import CharacterView from "../views/CharacterView.vue"
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/character',
-    name: 'character',
-    component: CharacterView
-  }
+  { path: '/', name: 'home', component: HomeView },
+  { path: '/character/:id', name: 'character', component: CharacterView }
 ]
 
 const router = new VueRouter({

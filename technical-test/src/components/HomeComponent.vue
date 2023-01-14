@@ -8,7 +8,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="character in charactersList.results" @click="extractIdFromApi(character.url)" :key="character.name">
+          <tr v-for="character in charactersList.results" @click="goToCharacterPage(character.url)" :key="character.name">
             <td>{{ character.name }}</td>
             <td>0</td>
           </tr>
@@ -41,8 +41,12 @@ import ApiMixin from '../mixins/ApiMixin.js'
         const finalRes = await res.json();
         this.charactersList = finalRes;
         this.loading = false;
-        console.log(this.charactersList);
       },
+      goToCharacterPage(url){
+      const id = this.extractIdFromApi(url);
+      console.log(id)
+      this.$router.push('/character/' + id);
+      }
     },
     mounted() {
       this.getData(this.pageNumber);

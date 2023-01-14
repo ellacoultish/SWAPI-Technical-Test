@@ -1,16 +1,7 @@
 <template>
-  <html id="html">
-  <head>
-    <title>SWAPI APP</title>
-  </head>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/character">About</router-link>
-    </nav>
     <router-view/>
   </div>
-  </html>
 </template>
 
 <style lang="scss">
