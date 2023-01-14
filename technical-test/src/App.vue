@@ -1,4 +1,8 @@
 <template>
+  <html id="html">
+  <head>
+    <title>SWAPI APP</title>
+  </head>
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
@@ -6,6 +10,7 @@
     </nav>
     <router-view/>
   </div>
+  </html>
 </template>
 
 <style lang="scss">
@@ -15,6 +20,9 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 nav {
