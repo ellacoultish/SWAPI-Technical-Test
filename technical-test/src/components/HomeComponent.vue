@@ -36,14 +36,11 @@ import ApiMixin from '../mixins/ApiMixin.js'
       async getData(pageNumber) {
         this.pageNumber = pageNumber;
         this.$store.commit('loading',{state:true});
-        const res = await fetch("https://swapi.dev/api/people/?page=" + pageNumber);
-        const finalRes = await res.json();
-        this.charactersList = finalRes;
+        this.charactersList = await this.getCharactersByPage(pageNumber);
         this.$store.commit('loading',{state:false});
       },
       goToCharacterPage(url){
       const id = this.extractIdFromApi(url);
-      console.log(id)
       this.$router.push('/character/' + id);
       }
     },

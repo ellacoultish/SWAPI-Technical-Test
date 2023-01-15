@@ -10,8 +10,6 @@ export default new Vuex.Store({
   },
   getters: {
     getCharacterLikesById: (state) => (id) => {
-      console.log(id);
-      console.log(state.characterLikes);
       return state.characterLikes.find(element => element.id === id)?.likes;
     }
   },
@@ -23,8 +21,6 @@ export default new Vuex.Store({
       let character = state.characterLikes.find(element => element.id === id);
       if(character){
         character.likes++;
-        console.log(character.likes);
-        console.log(state.characterLikes);
       }
       else{
         state.characterLikes.push({id:id,likes: 1});
