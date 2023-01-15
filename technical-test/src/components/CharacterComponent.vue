@@ -67,7 +67,7 @@ import ApiMixin from "@/mixins/ApiMixin.js"
     }
   }
 </script>
-<style lang="scss">
+<style scoped lang="scss">
 .character-parent{
   padding: 100px;
 }

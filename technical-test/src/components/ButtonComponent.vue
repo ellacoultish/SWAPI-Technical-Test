@@ -10,7 +10,10 @@
 <script>
   export default {
     name: 'ButtonComponent',
-    props: ['text','icon'],
+    props: {
+      text: String,
+      icon: String
+    },
     emits: ['button-clicked'],
   }
 </script>

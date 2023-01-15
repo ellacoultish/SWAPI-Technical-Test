@@ -34,7 +34,9 @@
 import ApiMixin from "@/mixins/ApiMixin.js"
   export default {
     name: 'ReviewComponent',
-    props: ['characterId'],
+    props: {
+      characterId: Number
+    },
     emits: ['closeWindow'],
     mixins: [ApiMixin],
     data () {

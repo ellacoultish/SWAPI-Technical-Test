@@ -17,6 +17,7 @@ export default new Vuex.Store({
     loading(state, payload){
       state.loading = payload.state; 
     },
+    //Increases like count of character
     likeCharacter(state, id){
       let character = state.characterLikes.find(element => element.id === id);
       if(character){

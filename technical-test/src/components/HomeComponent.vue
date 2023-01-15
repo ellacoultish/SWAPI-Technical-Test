@@ -47,6 +47,7 @@ import ApiMixin from '../mixins/ApiMixin.js'
     },
     async mounted() {
      await this.getData(this.pageNumber);
+     //calculates the number of pages needed to show all characters
      this.numberOfPages = Math.ceil(this.charactersList.count/this.itemsPerPage);
     }
   }

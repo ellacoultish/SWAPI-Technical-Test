@@ -10,7 +10,10 @@
 <script>
   export default {
     name: 'ListItemComponent',
-    props: ["title","value"],
+    props:{
+      title: String,
+      value: String
+    },
     emits: [],
   }
 </script>

@@ -1,10 +1,12 @@
 export default {
     methods: {
+      //Returns the ID out of SWAPI's URLs
       extractIdFromApi: function(apiURL){
         const splitURL = apiURL.split("/");
         const id = splitURL[splitURL.length-2];
         return id;
       },
+      //Fetches page of characetrs from SWAPI
       getCharactersByPage: async function(pageNumber){
         const response = await fetch("https://swapi.dev/api/people/?page=" + pageNumber);
         if (!response.ok){
@@ -14,6 +16,7 @@ export default {
           return await response.json();
         }
       },
+      //Fetches Character details from SWAPI
       getCharacterById: async function(characterId){
         const response = await fetch("https://swapi.dev/api/people/" + characterId);
         if (!response.ok){
@@ -23,6 +26,7 @@ export default {
           return await response.json();
         }
       },
+      //Example post of a review
       postReview: async function(review){
           const requestOptions = {
             method: "POST",
