@@ -54,36 +54,41 @@
         </v-list-item>
         <v-list-item>
         <v-list-item-content>
-          <ButtonComponent text="Write Review" icon="mdi-pencil-plus"></ButtonComponent>
           <ButtonComponent text="Like Character" icon=" mdi-thumb-up"  @button-clicked="$store.commit('likeCharacter',$route.params.id)"></ButtonComponent>
+          <ButtonComponent text="Write Review" icon="mdi-pencil-plus"  @button-clicked="dialog = true"></ButtonComponent>
+          <v-dialog v-model="dialog" persistent max-width="600px">
+                <ReviewComponent @closeWindow="dialog=false" :character-id="$route.params.id"></ReviewComponent>  
+            </v-dialog>
           </v-list-item-content>
           </v-list-item>
         </v-list>
-
     </v-card>
- 
-
     </div>
+
   </div>
   <div class="center" v-else>
     <v-progress-circular
       indeterminate
     ></v-progress-circular>
   </div>
-
 </template>
 
 <script>
 import ButtonComponent from '@/components/ButtonComponent.vue'
+import ReviewComponent from '@/components/ReviewComponent.vue'
   export default {
     name: 'CharacterComponent',
     components: {
-      ButtonComponent
+      ButtonComponent,
+      ReviewComponent
     },
     data() {
       return {
         userData: null,
-        loading: true
+        loading: true,
+        dialog: false,
+        attrs: null,
+        on: null
       }
     },
     methods: {
@@ -93,7 +98,6 @@ import ButtonComponent from '@/components/ButtonComponent.vue'
         const finalRes = await res.json();
         this.userData = finalRes;
         this.$store.commit('loading',{state:false});
-        console.log(this.userData);
       },
       navigateHome(){
         this.$router.push('/');
