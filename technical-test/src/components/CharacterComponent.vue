@@ -14,7 +14,7 @@
         <v-list-item>
         <v-list-item-content>
           <ButtonComponent text="Like Character" icon=" mdi-thumb-up"  @button-clicked="$store.commit('likeCharacter',$route.params.id)"></ButtonComponent>
-          <ButtonComponent text="Write Review" icon="mdi-pencil-plus"  @button-clicked="dialog = true"></ButtonComponent>
+          <ButtonComponent style="margin-left:10px" text="Write Review" icon="mdi-pencil-plus"  @button-clicked="dialog = true"></ButtonComponent>
           <v-dialog v-model="dialog" persistent max-width="600px">
                 <ReviewComponent @closeWindow="dialog=false" :character-id="$route.params.id"></ReviewComponent>  
             </v-dialog>

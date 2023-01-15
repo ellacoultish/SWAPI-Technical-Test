@@ -15,7 +15,7 @@
         </tbody>
       </v-simple-table>
       <v-skeleton-loader v-else type="table-thead@1,table-row-divider@10"></v-skeleton-loader>
-    <v-pagination :value="pageNumber" :circle="true" :length="numbeOfPages" @input="getData($event)"></v-pagination>
+    <v-pagination :value="pageNumber" :circle="true" :length="numberOfPages" @input="getData($event)"></v-pagination>
   </div>
 
 </template>
@@ -29,7 +29,8 @@ import ApiMixin from '../mixins/ApiMixin.js'
       return {
         charactersList: [],
         pageNumber: 1,
-        numbeOfPages:10
+        numberOfPages:10,
+        itemsPerPage: 10
       }
     },
     methods: {
@@ -44,8 +45,9 @@ import ApiMixin from '../mixins/ApiMixin.js'
       this.$router.push('/character/' + id);
       }
     },
-    mounted() {
-      this.getData(this.pageNumber);
+    async mounted() {
+     await this.getData(this.pageNumber);
+     this.numberOfPages = Math.ceil(this.charactersList.count/this.itemsPerPage);
     }
   }
 </script>
@@ -55,6 +57,9 @@ import ApiMixin from '../mixins/ApiMixin.js'
 
   v-simple-table{
     height: 100%;
+  }
+  .v-pagination__item--active{
+    background-color: darkcyan !important;
   }
 }
 </style>
