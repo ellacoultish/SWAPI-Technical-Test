@@ -4,54 +4,13 @@
     <div class="content-wrapper">
   <v-card max-width="500px" class="d-flex justify-center">
     <v-list>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>{{ userData?.name}}</v-list-item-title>
-          <v-list-item-subtitle>Name</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>{{userData?.birth_year}}</v-list-item-title>
-          <v-list-item-subtitle>Date of Birth</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>{{userData?.height}}</v-list-item-title>
-          <v-list-item-subtitle>Height</v-list-item-subtitle>
-        </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>{{userData?.mass}}</v-list-item-title>
-          <v-list-item-subtitle>Mass</v-list-item-subtitle>
-        </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>{{userData?.gender}}</v-list-item-title>
-          <v-list-item-subtitle>Gender</v-list-item-subtitle>
-        </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>{{userData?.skin_color}}</v-list-item-title>
-          <v-list-item-subtitle>Skin Colour</v-list-item-subtitle>
-        </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>{{userData?.hair_color}}</v-list-item-title>
-          <v-list-item-subtitle>Hair Colour</v-list-item-subtitle>
-        </v-list-item-content>
-        </v-list-item>
-        <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title>{{$store.getters.getCharacterLikesById($route.params.id) ?? 0}}</v-list-item-title>
-          <v-list-item-subtitle>Likes</v-list-item-subtitle>
-        </v-list-item-content>
-        </v-list-item>
+      <ListItemComponent :title="'Name'" :value="userData?.name"></ListItemComponent>
+      <ListItemComponent :title="'Birth Year'" :value="userData?.birth_year"></ListItemComponent>
+      <ListItemComponent :title="'Height'" :value="userData?.height"></ListItemComponent>
+      <ListItemComponent :title="'Mass'" :value="userData?.mass"></ListItemComponent>
+      <ListItemComponent :title="'Hair Colour'" :value="userData?.hair_color"></ListItemComponent>
+      <ListItemComponent :title="'Skin Colour'" :value="userData?.skin_color"></ListItemComponent>
+      <ListItemComponent :title="'Likes'" :value="$store.getters.getCharacterLikesById($route.params.id) ?? 0"></ListItemComponent>
         <v-list-item>
         <v-list-item-content>
           <ButtonComponent text="Like Character" icon=" mdi-thumb-up"  @button-clicked="$store.commit('likeCharacter',$route.params.id)"></ButtonComponent>
@@ -74,29 +33,29 @@
 </template>
 
 <script>
-import ButtonComponent from '@/components/ButtonComponent.vue'
-import ReviewComponent from '@/components/ReviewComponent.vue'
+import ButtonComponent from '@/components/ButtonComponent.vue';
+import ReviewComponent from '@/components/ReviewComponent.vue';
+import ListItemComponent from '@/components/ListItemComponent.vue';
+import ApiMixin from "@/mixins/ApiMixin.js"
   export default {
     name: 'CharacterComponent',
+    mixins: [ApiMixin],
     components: {
       ButtonComponent,
-      ReviewComponent
+      ReviewComponent,
+      ListItemComponent
     },
     data() {
       return {
         userData: null,
         loading: true,
         dialog: false,
-        attrs: null,
-        on: null
       }
     },
     methods: {
       async getUserData(){
         this.$store.commit('loading',{state:true});
-        const res = await fetch("https://swapi.dev/api/people/" + this.$route.params.id);
-        const finalRes = await res.json();
-        this.userData = finalRes;
+        this.userData = await this.getCharacterById(this.$route.params.id);
         this.$store.commit('loading',{state:false});
       },
       navigateHome(){
