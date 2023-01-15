@@ -54,12 +54,18 @@ import ApiMixin from '../mixins/ApiMixin.js'
 
 <style lang="scss">
 .home-parent{
-
-  v-simple-table{
-    height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 10%;
+  .v-data-table{
+    flex: 1;
   }
   .v-pagination__item--active{
     background-color: darkcyan !important;
+  }
+  tr{
+    cursor: pointer;
   }
 }
 </style>
